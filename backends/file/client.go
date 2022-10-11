@@ -7,9 +7,9 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/GuanceCloud/confd/log"
+	util "github.com/GuanceCloud/confd/util"
 	"github.com/fsnotify/fsnotify"
-	"github.com/kelseyhightower/confd/log"
-	util "github.com/kelseyhightower/confd/util"
 	"gopkg.in/yaml.v2"
 )
 

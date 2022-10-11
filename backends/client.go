@@ -4,17 +4,17 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/kelseyhightower/confd/backends/consul"
-	"github.com/kelseyhightower/confd/backends/dynamodb"
-	"github.com/kelseyhightower/confd/backends/env"
-	"github.com/kelseyhightower/confd/backends/etcdv3"
-	"github.com/kelseyhightower/confd/backends/file"
-	"github.com/kelseyhightower/confd/backends/rancher"
-	"github.com/kelseyhightower/confd/backends/redis"
-	"github.com/kelseyhightower/confd/backends/ssm"
-	"github.com/kelseyhightower/confd/backends/vault"
-	"github.com/kelseyhightower/confd/backends/zookeeper"
-	"github.com/kelseyhightower/confd/log"
+	"github.com/GuanceCloud/confd/backends/consul"
+	"github.com/GuanceCloud/confd/backends/dynamodb"
+	"github.com/GuanceCloud/confd/backends/env"
+	"github.com/GuanceCloud/confd/backends/etcdv3"
+	"github.com/GuanceCloud/confd/backends/file"
+	"github.com/GuanceCloud/confd/backends/rancher"
+	"github.com/GuanceCloud/confd/backends/redis"
+	"github.com/GuanceCloud/confd/backends/ssm"
+	"github.com/GuanceCloud/confd/backends/vault"
+	"github.com/GuanceCloud/confd/backends/zookeeper"
+	"github.com/GuanceCloud/confd/log"
 )
 
 // The StoreClient interface is implemented by objects that can retrieve

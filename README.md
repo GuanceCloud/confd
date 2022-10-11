@@ -27,9 +27,9 @@
 Go 1.10 is required to build confd, which uses the new vendor directory.
 
 ```
-$ mkdir -p $GOPATH/src/github.com/kelseyhightower
-$ git clone https://github.com/kelseyhightower/confd.git $GOPATH/src/github.com/kelseyhightower/confd
-$ cd $GOPATH/src/github.com/kelseyhightower/confd
+$ mkdir -p $GOPATH/src/github.com/GuanceCloud
+$ git clone https://github.com/GuanceCloud/confd.git $GOPATH/src/github.com/GuanceCloud/confd
+$ cd $GOPATH/src/github.com/GuanceCloud/confd
 $ make
 ```
 

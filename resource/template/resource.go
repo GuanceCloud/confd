@@ -15,9 +15,9 @@ import (
 	"text/template"
 
 	"github.com/BurntSushi/toml"
-	"github.com/kelseyhightower/confd/backends"
-	"github.com/kelseyhightower/confd/log"
-	util "github.com/kelseyhightower/confd/util"
+	"github.com/GuanceCloud/confd/backends"
+	"github.com/GuanceCloud/confd/log"
+	util "github.com/GuanceCloud/confd/util"
 	"github.com/kelseyhightower/memkv"
 )
 
