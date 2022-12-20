@@ -9,6 +9,7 @@ import (
 	"github.com/GuanceCloud/confd/backends/env"
 	"github.com/GuanceCloud/confd/backends/etcdv3"
 	"github.com/GuanceCloud/confd/backends/file"
+	"github.com/GuanceCloud/confd/backends/nacos"
 	"github.com/GuanceCloud/confd/backends/rancher"
 	"github.com/GuanceCloud/confd/backends/redis"
 	"github.com/GuanceCloud/confd/backends/ssm"
@@ -83,6 +84,17 @@ func New(config Config) (StoreClient, error) {
 		return dynamodb.NewDynamoDBClient(table)
 	case "ssm":
 		return ssm.New()
+	case "nacos":
+		return nacos.NewNacosClient(
+			config.BackendNodes,
+			config.Password,
+			config.Username,
+			config.Namespace,
+			config.AccessKey,
+			config.SecretKey,
+			config.NacosInterval,
+		)
 	}
-	return nil, errors.New("Invalid backend")
+
+	return nil, errors.New("invalid backend")
 }

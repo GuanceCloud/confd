@@ -27,4 +27,9 @@ type Config struct {
 	Filter         string     `toml:"filter"`
 	Path           string     `toml:"path"`
 	Role           string
+
+	Namespace     string `toml:"namespace"`
+	AccessKey     string `toml:"accessKey"`
+	SecretKey     string `toml:"secretKey"`
+	NacosInterval int    `toml:"nacos_interval"`
 }
