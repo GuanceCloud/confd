@@ -15,15 +15,6 @@ import (
 	"strconv"
 )
 
-// var replacer = strings.NewReplacer("/", ".")
-
-// 拟删除
-// type Client struct {
-// 	ServerConfigs []constant.ServerConfig // service config list
-// 	ClientConfig  constant.ClientConfig   // backend config
-// 	Listeners     map[string]interface{}  // Listen process。example: "DEFAULT_GROUP|Data_ID"
-// }
-
 type Client struct {
 	// "serverConfigs" + "clientConfig"
 	Configs config_client.IConfigClient
