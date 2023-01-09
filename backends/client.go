@@ -4,6 +4,7 @@ import (
 	"errors"
 	"strings"
 
+	"github.com/GuanceCloud/confd/backends/aws"
 	"github.com/GuanceCloud/confd/backends/consul"
 	"github.com/GuanceCloud/confd/backends/dynamodb"
 	"github.com/GuanceCloud/confd/backends/env"
@@ -92,8 +93,16 @@ func New(config Config) (StoreClient, error) {
 			config.Namespace,
 			config.AccessKey,
 			config.SecretKey,
-			config.NacosInterval,
+			config.CircleInterval,
 		)
+	case "aws":
+		return aws.NewAWSClient(
+			config.AccessKey,
+			config.SecretKey,
+			config.Region,
+			config.CircleInterval,
+		)
+
 	}
 
 	return nil, errors.New("invalid backend")

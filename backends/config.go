@@ -28,8 +28,9 @@ type Config struct {
 	Path           string     `toml:"path"`
 	Role           string
 
-	Namespace     string `toml:"namespace"`
-	AccessKey     string `toml:"accessKey"`
-	SecretKey     string `toml:"secretKey"`
-	NacosInterval int    `toml:"nacos_interval"`
+	Namespace      string `toml:"namespace"`
+	AccessKey      string `toml:"accessKey"`
+	SecretKey      string `toml:"secretKey"`
+	CircleInterval int    `toml:"circle_interval"`
+	Region         string `toml:"region"`
 }
