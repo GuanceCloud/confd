@@ -122,7 +122,6 @@ func (c *Client) WatchPrefix(prefix string, keys []string, waitIndex uint64, sto
 			return waitIndex + 1, err
 		}
 
-		fmt.Print("T")
 		// cycle get data to find new data
 		namesNow = make(map[string]bool)
 		input := &secretsmanager.ListSecretsInput{}
