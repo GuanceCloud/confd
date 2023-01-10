@@ -49,6 +49,14 @@ func NewAWSClient(accessKeyID, secretAccessKey, region string, circleInterval in
 		ExitWatchCh:    make(chan error, 1),
 	}
 
+	// test get all secretNames
+	input := &secretsmanager.ListSecretsInput{}
+	_, err = c.Client.ListSecrets(context.TODO(), input)
+
+	if err != nil {
+		return nil, fmt.Errorf("new aws client error")
+	}
+
 	return
 }
 
