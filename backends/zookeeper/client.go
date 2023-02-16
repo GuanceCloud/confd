@@ -154,6 +154,27 @@ func (c *Client) WatchPrefix(prefix string, keys []string, waitIndex uint64, sto
 		}
 	}
 
+	// Fix if network broken, then recovery, WatchPrefix may fail.
+	length := len(entries)
+	go func() {
+		for {
+			time.Sleep(time.Second * 60)
+			entriesNew, err := c.GetValues([]string{prefix})
+			if err == nil {
+				if length != len(entriesNew) {
+					respChan <- watchResponse{1, nil}
+					return
+				}
+				for k, v := range entries {
+					if entriesNew[k] != v {
+						respChan <- watchResponse{1, nil}
+						return
+					}
+				}
+			}
+		}
+	}()
+
 	for {
 		select {
 		case <-stopChan:
