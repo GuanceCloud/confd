@@ -17,7 +17,8 @@ type Client struct {
 func NewZookeeperClient(machines []string) (*Client, error) {
 	c, _, err := zk.Connect(machines, time.Second) //*10)
 	if err != nil {
-		panic(err)
+		// panic(err) // panic should not be used, return error should be used.
+		return nil, err
 	}
 	return &Client{c}, nil
 }
