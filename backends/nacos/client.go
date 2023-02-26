@@ -207,4 +207,6 @@ func (c *Client) WatchPrefix(prefix string, keys []string, waitIndex uint64, sto
 	}
 }
 
+func (c *Client) cancelWatches() {}
+
 func (c *Client) Close() {}
