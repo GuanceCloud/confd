@@ -166,3 +166,5 @@ func (c *Client) WatchPrefix(prefix string, keys []string, waitIndex uint64, sto
 		}
 	}
 }
+
+func (c *Client) Close() {}

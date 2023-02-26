@@ -141,7 +141,7 @@ func (c *Client) WatchPrefix(prefix string, keys []string, waitIndex uint64, sto
 			Group:  group,
 		})
 		if err != nil {
-			log.Error("cancel Watch error: %s", err.Error())
+			// log.Error("cancel Watch error: %s", err.Error())
 		}
 
 		// delete on Listeners
@@ -207,4 +207,4 @@ func (c *Client) WatchPrefix(prefix string, keys []string, waitIndex uint64, sto
 	}
 }
 
-func (c *Client) cancelWatches() {}
+func (c *Client) Close() {}

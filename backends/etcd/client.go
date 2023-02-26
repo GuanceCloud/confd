@@ -10,7 +10,6 @@ import (
 
 	"sync"
 
-	"github.com/GuanceCloud/confd/log"
 	clientv3 "go.etcd.io/etcd/client/v3"
 )
 
@@ -61,23 +60,23 @@ func createWatch(client *clientv3.Client, prefix string) (*Watch, error) {
 	go func() {
 		rch := client.Watch(context.Background(), prefix, clientv3.WithPrefix(),
 			clientv3.WithCreatedNotify())
-		log.Debug("Watch created on %s", prefix)
+		// log.Debug("Watch created on %s", prefix)
 		for {
 			for wresp := range rch {
 				if wresp.CompactRevision > w.revision {
 					// respect CompactRevision
 					w.update(wresp.CompactRevision)
-					log.Debug("Watch to '%s' updated to %d by CompactRevision", prefix, wresp.CompactRevision)
+					// log.Debug("Watch to '%s' updated to %d by CompactRevision", prefix, wresp.CompactRevision)
 				} else if wresp.Header.GetRevision() > w.revision {
 					// Watch created or updated
 					w.update(wresp.Header.GetRevision())
-					log.Debug("Watch to '%s' updated to %d by header revision", prefix, wresp.Header.GetRevision())
+					// log.Debug("Watch to '%s' updated to %d by header revision", prefix, wresp.Header.GetRevision())
 				}
 				if err := wresp.Err(); err != nil {
-					log.Error("Watch error: %s", err.Error())
+					// log.Error("Watch error: %s", err.Error())
 				}
 			}
-			log.Warning("Watch to '%s' stopped at revision %d", prefix, w.revision)
+			// log.Warning("Watch to '%s' stopped at revision %d", prefix, w.revision)
 			// Disconnected or cancelled
 			// Wait for a moment to avoid reconnecting
 			// too quickly
@@ -268,3 +267,5 @@ func (c *Client) WatchPrefix(prefix string, keys []string, waitIndex uint64, sto
 	}
 	return 0, err
 }
+
+func (c *Client) Close() {}
