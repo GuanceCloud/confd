@@ -89,7 +89,6 @@ func (c *Client) loginWithPassword() error {
 		httpReq, err := http.NewRequest("POST", url, reqBody)
 		if err != nil {
 			// log.Error("NewRequest fail, url: %s, reqBody: %s, err: %v", url, reqBody, err)
-			// fmt.Printf("NewRequest fail, url: %s, reqBody: %v, err: %v \n", url, reqBody, err)
 			return err
 		}
 		httpReq.Header.Add("Content-Type", "application/x-www-form-urlencoded")
@@ -99,7 +98,6 @@ func (c *Client) loginWithPassword() error {
 		httpRsp, err := http.DefaultClient.Do(httpReq)
 		if err != nil {
 			// log.Error("do http fail, url: %s, reqBody: %s, err:%v", url, reqBody, err)
-			// fmt.Printf("do http fail, url: %s, reqBody: %v, err:%v \n", url, reqBody, err)
 			return err
 		}
 		defer httpRsp.Body.Close()
@@ -108,12 +106,10 @@ func (c *Client) loginWithPassword() error {
 		rspBody, err := ioutil.ReadAll(httpRsp.Body)
 		if httpRsp.StatusCode != 200 {
 			// log.Error("response err: %v", string(rspBody))
-			// fmt.Printf("response err: %v \n", string(rspBody))
 			return fmt.Errorf("response err: %v", string(rspBody))
 		}
 		if err != nil {
 			// log.Error("ReadAll failed, url: %s, reqBody: %s, err: %v", url, reqBody, err)
-			// fmt.Printf("ReadAll failed, url: %s, reqBody: %v, err: %v \n", url, reqBody, err)
 			return err
 		}
 
@@ -121,12 +117,10 @@ func (c *Client) loginWithPassword() error {
 		var result RspBody
 		if err = json.Unmarshal(rspBody, &result); err != nil {
 			// log.Error("Unmarshal fail, err:%v", err)
-			// fmt.Printf("Unmarshal fail, err:%v\n", err)
 			return err
 		}
 
 		// log.Debug("do post http success, url: %s, reqBody: %s, body: %s %s", url, reqBody, string(rspBody), errMsg)
-		// fmt.Printf("do post http success, url: %s, reqBody: %v, body: %s \n", url, reqBody, string(rspBody))
 		c.BackendNodes[i].AccessToken = result.AccessToken
 	}
 
@@ -190,7 +184,6 @@ func (c *Client) GetValues(keys []string) (map[string]string, error) {
 			if strings.HasPrefix(err.Error(), "code not 200") {
 				// HTTP code not 200, retry login.
 				// log.Error("HTTP code not 200, retry login.", err)
-				fmt.Println("HTTP code not 200, retry login.", err)
 				if errLogin := c.loginWithPassword(); errLogin != nil {
 					return make(map[string]string), fmt.Errorf("nacos login with password error in getValues: %v", errLogin)
 				}
@@ -263,9 +256,12 @@ func (c *Client) getValuesFromHTTP(backendAddr, namespaceName, accessToken strin
 // If creat new dataID, perhaps delay 60S.
 // @prefix @keys all useful.
 func (c *Client) WatchPrefix(prefix string, keys []string, waitIndex uint64, stopChan chan bool) (uint64, error) {
-
+	prefixes := append([]string{}, keys...)
+	if prefix != "" {
+		prefixes = append(prefixes, prefix)
+	}
 	// List of all dataIDs prefix, the key like "/group_name/dataID_name".
-	oldDataIDs, err := c.GetValues(append(keys, prefix))
+	oldDataIDs, err := c.GetValues(prefixes)
 	if err != nil {
 		return waitIndex + 1, fmt.Errorf("nacos WatchPrefix : %v", err)
 	}
@@ -288,7 +284,6 @@ func (c *Client) WatchPrefix(prefix string, keys []string, waitIndex uint64, sto
 		if !reflect.DeepEqual(newDataIDs, oldDataIDs) {
 			return waitIndex + 1, nil
 		}
-		fmt.Print(">")
 	}
 }
 
