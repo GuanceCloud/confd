@@ -158,6 +158,11 @@ func (c *Client) WatchPrefix(prefix string, keys []string, waitIndex uint64, sto
 				return waitIndex + 1, nil
 			}
 		}
+
+		// Deep copy.
+		for k, _ := range namesNow {
+			namesOld[k] = true
+		}
 	}
 }
 
